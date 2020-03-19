@@ -17,13 +17,15 @@ namespace OvertimeReportSystem.Controllers
         private readonly IOvertimeRepository<BreakDownHours> _breakdown = null;
         private readonly IOvertimeRepository<Site> _site = null;
         private readonly IOvertimeRepository<OvertimeType> _overtimeType = null;
+        private readonly IOvertimeRepository<Years> _year = null;
 
-        public ReportController(IOvertimeRepository<Employee> employee, IOvertimeRepository<Attendance> attendance, IOvertimeRepository<BreakDownHours> breakdown, IOvertimeRepository<Site> site, IOvertimeRepository<OvertimeType> overtimeType) {
+        public ReportController(IOvertimeRepository<Years> year,IOvertimeRepository<Employee> employee, IOvertimeRepository<Attendance> attendance, IOvertimeRepository<BreakDownHours> breakdown, IOvertimeRepository<Site> site, IOvertimeRepository<OvertimeType> overtimeType) {
             _employee = employee;
             _attendance = attendance;
             _breakdown = breakdown;
             _overtimeType = overtimeType;
             _site = site;
+            _year = year;
         }
 
         public IActionResult GetReport() {
@@ -59,12 +61,25 @@ namespace OvertimeReportSystem.Controllers
 
         }
 
+        public IActionResult GetYears() {
+            try {
+                return Ok(_year.GetAll());
+            } catch(Exception e) {
+                return NotFound(e);
+            }
+          
+        }
+
 
  
         public string AddBreakDown([FromBody]List<BreakDownHours> breakDownHours) {
             List<BreakDownHours> toUpdateBreakdown = new List<BreakDownHours>();
             List<BreakDownHours> toAddBreakdown = new List<BreakDownHours>();
+            decimal totalBreakdownHour = 0;
+            decimal attendanceId = 0;
             foreach (var breakdown in breakDownHours) {
+                totalBreakdownHour += breakdown.Hour;
+                attendanceId = breakdown.AttendanceId;
                 if (breakdown.Id == 0) {
                     toAddBreakdown.Add(new BreakDownHours() {
                         AttendanceId = breakdown.AttendanceId,
@@ -80,6 +95,15 @@ namespace OvertimeReportSystem.Controllers
                 }
             }
             try {
+                var attendanceOfUserById = _attendance.GetAll().FirstOrDefault(a => a.Id == attendanceId);
+                if(attendanceOfUserById.OverTimeHour <= totalBreakdownHour) {
+                    attendanceOfUserById.Status = true;
+   
+                } else if (attendanceOfUserById.OverTimeHour < totalBreakdownHour){
+                    attendanceOfUserById.Status = false;
+              
+                }
+                _attendance.Update(attendanceOfUserById);
                 _breakdown.AddRangeOfBreakdowns(toAddBreakdown);
                 _breakdown.UpdateRangeOfBreakdowns(toUpdateBreakdown);    
                  return "Successfully Created";

@@ -12,6 +12,7 @@ namespace OvertimeReport.DataProvider {
         public DbSet<BreakDownHours> BreakDownHours { get; set; }
         public DbSet<Site> Sites { get; set; }
         public DbSet<OvertimeType> OvertimeTypes { get; set; }
+        public DbSet<Years> Years { get; set; }
       
     }
 }

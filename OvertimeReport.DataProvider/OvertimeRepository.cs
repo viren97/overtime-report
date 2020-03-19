@@ -40,10 +40,10 @@ namespace OvertimeReport.DataProvider {
         //    return _context.Set<T>().Find(id);
         //}
 
-        //public void Update(T entity) {
-        //    _context.Entry(entity).State = EntityState.Modified;
-        //    _context.SaveChanges();
-        //}
+        public void Update(T entity) {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
 
     }
 }

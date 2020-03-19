@@ -43,6 +43,7 @@ var employeeAttendance = (id) => {
 var generateEmployeeData = () => {
     let emp;
     let attendance;
+    Employees.length = 0;
     for (let i = 0; i < ReportData[0].employees.length; i++){
         emp = ReportData[0].employees[i];
         var employee = {
@@ -60,7 +61,7 @@ var generateEmployeeData = () => {
 
         Employees.push(employee);
     }
-    setYear();
+    fetchYear();
     setMonth();
     console.log(Employees);
 
@@ -68,7 +69,10 @@ var generateEmployeeData = () => {
 
 var GetAllData = () => {
     let url = uri + 'GetReport/';
-    fetch(url).then(response => response.json()).then(data => ReportData.push(data)).then(data => this.generateEmployeeData())
+    fetch(url).then(response => response.json()).then(data =>{
+        ReportData.length = 0;
+        ReportData.push(data)
+    } ).then(data => this.generateEmployeeData())
         .catch(error => console.log(error));
 
 };
@@ -138,7 +142,7 @@ var modifyDisplayedRecord = (record) => {
                 siteCodeAddress : emp.SiteCodeAddress,
                 overtime : overtimeSum(emp.Attendance),
                 breakdownHour : breakDownHourSum(emp.Attendance),
-                status : isCompleted(emp.Attendance) ? 'Completed' : 'Pending',
+                status : isCompleted(emp.Attendance[j]) ? 'Completed' : 'Pending',
                 date : `${monthNames[weekStart.getMonth()]}, ${weekStart.getDate()} ${weekStart.getFullYear()} - ${monthNames[weekEnd.getMonth()]}, ${weekEnd.getDate()} ${weekEnd.getFullYear()}`  ,
                 year : weekStart.getFullYear(),
                 month : weekStart.getMonth(),
@@ -205,7 +209,6 @@ var filterBasedOnUserRole = (flag = 0) => {
 
     var employee;
     if (userRole === (UserRole.Manager)) {
-
         var user = getUserByUserName(userName);
         if (user !== null) {
             for (let i = 0; i < Employees.length; i++) {
@@ -222,7 +225,7 @@ var filterBasedOnUserRole = (flag = 0) => {
 
 
     } else {
-        DisplayedEmployee = [];
+        DisplayedEmployee.length = 0;
         DisplayedEmployee.push(getUserByUserName(userName));
         calculateOvertime(DisplayedEmployee);
     }
@@ -433,7 +436,7 @@ var displayResult = (displayedEmployee) => {
         date.classList.add(emp.attendanceId);
         date.addEventListener('click',   getBreakDownInformation, false);
 
-        changeStatusColor(status);
+        changeStatusColor(status, emp.status);
 
 
         tr.appendChild(name);
@@ -449,12 +452,12 @@ var displayResult = (displayedEmployee) => {
     }
 }
 
-var changeStatusColor = (status) => {
+var changeStatusColor = (statusTag, status) => {
 
-    if(status.innerHTML.toLowerCase() === 'pending'){
-        status.style.color = 'red';
+    if(status.toLocaleLowerCase() === 'pending'){
+        statusTag.style.color = 'red';
     } else {
-        status.style.color = 'green';
+        statusTag.style.color = 'green';
     }
 }
 
@@ -526,7 +529,7 @@ var createHelpInfo = () => {
 var popuateSiteAddresses = (id) => {
     var option; 
     var addresses = document.getElementById(id);
-    addresses.innerHTML = "";
+    // addresses.innerHTML = "";
     option = document.createElement('option');
     option.value = 'select';
     option.innerHTML = 'select';
@@ -542,7 +545,7 @@ var popuateSiteAddresses = (id) => {
 
 var populateMinute = (id) => {
     var minute = document.getElementById(id);
-    minute.innerHTML = "";
+    // minute.innerHTML = "";
     var option;
     for(let i = 0; i<=45; i+=15){
         option = document.createElement('option');
@@ -555,7 +558,7 @@ var populateMinute = (id) => {
 var populateOvertimeCategory = (id) => {
     var option; 
     var category = document.getElementById(id);
-    category.innerHTML = "";
+    // category.innerHTML = "";
     option = document.createElement('option');
     option.value = 'select';
     option.innerHTML = 'select';
@@ -576,7 +579,7 @@ var popupBreakdown =  (id) => {
     var simulateUser = document.getElementById('simulateUser').value;
     var empName = document.getElementById(`employeeName${id}`).innerHTML;
     var timePeriod = document.getElementById(`timePeriod${id}`).innerHTML;
-    var overtime = document.getElementById(`overtime${id}`).innerHTML;
+    overtime = document.getElementById(`overtime${id}`).innerHTML;
 
     document.querySelector('.overlay').style.display = 'block';
     document.querySelector('.breakdown-container').style.display = 'block'; 
@@ -646,14 +649,14 @@ var populateContent = () => {
         otSiteAdd =  document.createElement('select');
         otMinute = document.createElement('select');
 
-        otMinute.setAttribute('id', 'minute');
+        otMinute.setAttribute('id', `minute${item.id}`);
         otMinute.setAttribute('name', 'minute');
 
         otCategorySelect.setAttribute('name', 'ovetimeCategory');
-        otCategorySelect.setAttribute('id', 'overtimeCategory');
+        otCategorySelect.setAttribute('id', `overtimeCategory${item.id}`);
 
         otSiteAdd.setAttribute('name', 'siteAdd');
-        otSiteAdd.setAttribute('id', 'siteAdd');
+        otSiteAdd.setAttribute('id', `siteAdd${item.id}`);
 
         span.classList.add('ovetime-hour');
         otHour.setAttribute('type', 'text');
@@ -714,6 +717,10 @@ var populateContent = () => {
         tblrow.appendChild(tbldata4);
      table.appendChild(tblrow);
 
+     populateMinute(`minute${item.id}`);
+     popuateSiteAddresses(`siteAdd${item.id}`);
+     populateOvertimeCategory(`overtimeCategory${item.id}`);
+
     }
 
     return breakdownHour;
@@ -762,13 +769,12 @@ var breakDownHourSum = (attendance) => {
     return time;
 }
 
-var isCompleted = () => {
-    for (let i = 0; i < attendance.length; i++) {
-        if (attendance[i].status === true) {
-            return true;
-        }
-    }
+var isCompleted = (attendance) => {
+    if(attendance.status === true){
+        return true;
+    } 
     return false;
+
 }
 
 
@@ -818,17 +824,40 @@ var setMonth = () => {
 
 };
 
-var setYear = () => {
-    var year = document.getElementById('year');
-    var today = new Date();
-    var currentYear = today.getFullYear();
-    var option;
-    for(let i = 0; i<10; i++){
-        option = document.createElement('option');
-        option.value = currentYear - i;
-        option.innerHTML = currentYear - i;
-        year.appendChild(option);
+var fetchYear = () => {
+    var url = `${uri}getyears`;
+    fetch(url, {
+        method : 'get',
+        headers : {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json'
+        }
     }
+      ).then(r => r.json()).then( r => setYear(r)).catch(e => alert(e));
+}
+
+var setYear = (years) => {
+
+    var year = document.getElementById('year');
+    let setValue;
+    var option;
+    for(let i = 0; i<years.length; i++){
+        option = document.createElement('option');
+        option.value = years[i].year;
+        option.innerHTML = years[i].year;     
+        year.appendChild(option);
+        if(years[i].isActive === true){
+            setValue = years[i].year;
+        }
+    }
+
+    for(let i = 0; i<year.options.length; i++){
+        if(year.options[i].value === setValue.toString()){
+            year.options[i].selected = true;
+        }
+    }
+    setMonth();
+    
     year.addEventListener('change', setMonth, false);
 };
 
@@ -862,9 +891,8 @@ var saveBreakDownData = () => {
             Comment : row.childNodes[3].childNodes[0].childNodes[0].value,
             Hour : Number(hour),
         }
+
         breakdowns.push(breakdown);    
-
-
     }
  
     let url = `${uri}AddBreakDown`;
@@ -879,7 +907,7 @@ var saveBreakDownData = () => {
     }).then(function() {
         closeBreakdownPage();
         
-    }).then(r => alert('success')).catch(e => alert('error' + e));
+    }).then(r => alert('success')).then(GetAllData).then(filterBasedOnUserRole).catch(e => alert('error' + e));
 };
 
 var closeBreakdownPage = () => {

@@ -32,6 +32,7 @@ namespace OvertimeReportSystemMVC {
             services.AddScoped<IOvertimeRepository<Employee>, OvertimeRepository<Employee>>();
             services.AddScoped<IOvertimeRepository<Site>, OvertimeRepository<Site>>();
             services.AddScoped<IOvertimeRepository<OvertimeType>, OvertimeRepository<OvertimeType>>();
+            services.AddScoped<IOvertimeRepository<Years>, OvertimeRepository<Years>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

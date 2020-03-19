@@ -9,5 +9,6 @@ namespace OvertimeReport.DataProvider {
         void Delete(int id);
         void AddRangeOfBreakdowns(List<T> entities);
         void UpdateRangeOfBreakdowns(List<T> entities);
+        void Update(T entity);
     }
 }

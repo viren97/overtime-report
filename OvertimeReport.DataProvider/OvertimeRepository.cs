@@ -12,6 +12,16 @@ namespace OvertimeReport.DataProvider {
             _context = context;
         }
 
+        public void AddRangeOfBreakdowns(List<T> entities) {
+            _context.AddRange(entities);
+            _context.SaveChanges();
+        }
+
+        public void UpdateRangeOfBreakdowns(List<T> entities) {
+            _context.UpdateRange(entities);
+            _context.SaveChanges();
+        }
+
         public List<T> GetAll() {
             return _context.Set<T>().ToList();
         }

@@ -62,12 +62,27 @@ namespace OvertimeReportSystem.Controllers
 
  
         public string AddBreakDown([FromBody]List<BreakDownHours> breakDownHours) {
-            try {
-                foreach(var breakdown in breakDownHours) {
-                    _breakdown.Add(breakdown);
+            List<BreakDownHours> toUpdateBreakdown = new List<BreakDownHours>();
+            List<BreakDownHours> toAddBreakdown = new List<BreakDownHours>();
+            foreach (var breakdown in breakDownHours) {
+                if (breakdown.Id == 0) {
+                    toAddBreakdown.Add(new BreakDownHours() {
+                        AttendanceId = breakdown.AttendanceId,
+                        Hour = breakdown.Hour,
+                        Comment = breakdown.Comment,
+                        OvertimeType = breakdown.OvertimeType,
+                        SiteAddress = breakdown.SiteAddress,
+                        Datetime = breakdown.Datetime
+
+                    });
+                } else {
+                    toUpdateBreakdown.Add(breakdown);
                 }
-             
-                return "Successfully Created";
+            }
+            try {
+                _breakdown.AddRangeOfBreakdowns(toAddBreakdown);
+                _breakdown.UpdateRangeOfBreakdowns(toUpdateBreakdown);    
+                 return "Successfully Created";
             } catch(Exception e) {
                 return e.Message;
             }

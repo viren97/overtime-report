@@ -87,7 +87,7 @@ select.site-add {
     padding: 0px 10px;
 }
 
-input#hr {
+.ot-hour {
     width: 84px;
     height: 31px;
     border-radius: 5px;
@@ -101,7 +101,7 @@ select.ot-minute {
     border-radius: 5px;
 }
 
-input#comment {
+.ot-comment{
     width: 595px;
     height: 33px;
     border-radius: 5px;

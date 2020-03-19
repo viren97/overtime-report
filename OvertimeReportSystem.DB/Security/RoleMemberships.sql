@@ -1,0 +1,14 @@
+﻿ALTER SERVER ROLE [sysadmin] ADD MEMBER [TECHNOVERT\sanjeev.k];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [TECHNOVERT\virendra.p];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT SERVICE\SQLWriter];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT SERVICE\Winmgmt];
+

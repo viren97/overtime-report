@@ -657,13 +657,13 @@ var populateContent = () => {
 
         span.classList.add('ovetime-hour');
         otHour.setAttribute('type', 'text');
-        otHour.setAttribute('id', 'hr');
         otHour.setAttribute('name', 'hr');
+        otHour.classList.add('ot-hour')
         otHour.setAttribute('placeholder', 'hrs');
 
         otComment.setAttribute('type', 'text');
-        otComment.setAttribute('id', 'comment');
         otComment.setAttribute('name', 'comment');
+        otComment.classList.add('ot-comment')
         otComment.setAttribute('placeholder', 'Comments');
 
         otComment.value = item.comment;
@@ -721,7 +721,8 @@ var populateContent = () => {
 
 var removeRow = (e) => {
     var rowId = Number(e.target.id);
-    var recordId = Number(e.target.parentNode.id);
+    var recordId = e.target.parentNode.tagName.toLocaleLowerCase() === 'p' ? Number(e.target.parentNode.parentNode.id) : Number(e.target.parentNode.id) ;
+    let trow = e.target.parentElement.parentElement.parentElement.parentElement;
     var url = `${uri}DeleteBreakdownRecord/${recordId}`;
     fetch(url, {
         method : 'DELETE',
@@ -730,7 +731,7 @@ var removeRow = (e) => {
             'Content-Type' : 'application/json'
         },
     }).then(() => {
-        document.getElementById('breakdownTable').deleteRow(rowId + 1);
+        trow.parentNode.removeChild(trow);
     })
 }
 
@@ -843,20 +844,22 @@ var setYear = () => {
 var saveBreakDownData = () => {
     var date = new Date();
     let breakdowns = [];
-    // let table = document.getElementById('breakdownTable');
-    // let toSaveBreakdowns = table.rows;
-    let toSaveBreakdowns = document.querySelectorAll('.to-save');
+    let table = document.getElementById('breakdownTable');
+    let toSaveBreakdowns = table.rows;
+    // let toSaveBreakdowns = document.querySelectorAll('.to-save');
     let breakdown;
-    let row, hour;
+    let row, hour,id;
     for(let i = 1; i<toSaveBreakdowns.length; i++){
         row = toSaveBreakdowns[i];
         hour = `${row.childNodes[2].childNodes[0].childNodes[0].value}.${row.childNodes[2].childNodes[0].childNodes[1].value}`;
+        id = Number(row.cells[3].childNodes[0].id);
         breakdown = {
+            Id :  id,
             AttendanceId : attendanceId,
             OvertimeType : row.childNodes[0].childNodes[0].value,
             SiteAddress : row.childNodes[1].childNodes[0].value,
             Datetime : date,
-            Comment : row.childNodes[3].childNodes[0].value,
+            Comment : row.childNodes[3].childNodes[0].childNodes[0].value,
             Hour : Number(hour),
         }
         breakdowns.push(breakdown);    
@@ -867,7 +870,7 @@ var saveBreakDownData = () => {
     let url = `${uri}AddBreakDown`;
     
     fetch(url, {
-        method : "PUT",
+        method : "POST",
         headers : {
             'Accept' : 'application/json',
             'Content-Type' : 'application/json',
@@ -919,14 +922,14 @@ var addRowToTable = () => {
 
     span.classList.add('ovetime-hour');
     otHour.setAttribute('type', 'text');
-    otHour.setAttribute('id', 'hr');
     otHour.setAttribute('name', 'hr');
+    otHour.classList.add('ot-hour');
     otHour.setAttribute('placeholder', 'hrs');
 
     otComment.setAttribute('type', 'text');
-    otComment.setAttribute('id', 'comment');
     otComment.setAttribute('name', 'comment');
     otComment.setAttribute('placeholder', 'Comments');
+    otComment.classList.add('ot-comment')
     span.appendChild(otHour);
     span.appendChild(otMinute);
 

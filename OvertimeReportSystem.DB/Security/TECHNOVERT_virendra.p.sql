@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [TECHNOVERT\virendra.p]
+    FROM WINDOWS WITH DEFAULT_LANGUAGE = [us_english];
+

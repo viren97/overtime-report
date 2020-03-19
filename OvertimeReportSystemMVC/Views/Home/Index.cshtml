@@ -1,0 +1,168 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DigitalReality-Homepage</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script type="text/javascript" src="./js/index.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/703253509d.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/breakDownOverlay.css">
+
+</head>
+<body onload="GetAllData()">
+     <div class="overlay"> 
+        <div class="breakdown-container" onmouseup="closeBreakdownPage()">
+        </div>
+        <div class="breakdown-report">
+                <p class="greeting-user" id='greet'>Welcome Abdul</p>
+                <small>Employee Name</small>
+                <strong id='empName'>Bhatia, Sanjit</strong>
+                <div class="breakdown-header">
+                    <p class="heading">Overtime Details</p>
+                    <small class="period">Time period: Feb, 23rd 2020 - Feb, 29th 2020</small>
+                    <span class="hours">0 / 3.5</span>
+                    <button class="save-btn" onclick='saveBreakDownData()'>Save</button>
+                    <button class="cancel-btn" onclick="closeBreakdownPage()">Cancel</button>
+
+                </div>
+
+                <table id='breakdownTable'>
+                </table>
+                    <i class="fas fa-plus-circle" onclick='addRowToTable()'></i>
+            </div>
+     </div>
+ 
+
+
+    <div class='navigation-bar'>
+        <img src="./static files/digital-realty-seeklogo.com.svg" alt="">
+        <div class="portal">
+            <span class="portal-name">OVER TIME PORTAL</span>
+            <span class="name-page-divider">|</span>
+            <span class="portal-page">REPORTS</span>
+        </div>
+
+        <div class="pagefor">
+            <label for="userRole">User Role:</label>
+            <select name="userRole" id="userRole" class="user-role-dropdown" onchange="filterBasedOnUserRole()">
+                <option value="Select Role" selected>Select Role</option>
+                <option value="Manager">Manager</option>
+                <option value="Employee">Employee</option>
+            </select>
+
+            <label for="simulateUser">Simulate User:</label>
+            <select name="simulateUser" id="simulateUser" class="simulate-user" onchange="filterBasedOnUserRole(1)">
+                <option value="Name">Name</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p id="greetingUser" class="greeting-user">Welcome Virendra Pandey</p>
+        <span class="search-box">
+            <i class="fas fa-search fa-rotate-90" aria-hidden="true"></i>
+            <input type="text" onkeyup="queryDetails(this.value)" onfocusout="queryDetails(this.value)" placeholder="Search by Employee Name" id='searchBox'>
+        </span>
+        <div class="filter-container">
+            <div class="filter-section-first">
+                <div class="filter-option">
+                    <label for="division">Division:</label>
+                    <select name="division" id="division" onchange="queryDetails('')">
+                        <option value="All" id="defaultDivision" selected>All</option>
+                    </select>
+                </div>
+
+                <div class="filter-option">
+                    <label for="market">Market:</label>
+                    <select name="market" id="market" onchange="queryDetails('')">
+                        <option value="All" id="defaultMarket" selected>All</option>
+
+                    </select>
+                </div>
+
+                <div class="filter-option">
+                    <label for="siteCodeAddress">Sitecode Address:</label>
+                    <select name="siteCodeAddress" id="siteCodeAddress" onchange="queryDetails('')">
+                        <option value="All" id="defaultSiteAddress" selected>All</option>
+                        <option value="Hyderabad">Hyderabad</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section-second">
+
+                <div class="filter-option">
+                    <label for="function">Function:</label>
+                    <select name="function" id="function" onchange="queryDetails('')">
+                        <option value="All" id="defaultFunction" selected>All</option>
+                        <option value="Engineering">Engineering</option>
+
+                    </select>
+                </div>
+
+                <div class="filter-option">
+                    <label for="status">Status:</label>
+                    <select name="status" id="status" onchange="queryDetails('')">
+                        <option value="All" id="defaultStatus" selected>All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <button onclick="clearFilterOption()" class="btn">Clear</button>
+                <button class="btn">Export</button>
+
+            </div>
+        </div>
+        <div class="report-summary">
+            <p id="totalOvertime">Total OT Hours: 0</p>
+            <p id="completedOvertime">Completed: 0</p>
+            <p id="pendingOvertime">Pending: 0</p>
+            <div class="result-filterby-month">
+                <label for="month">Month:</label>
+                <select name="month" id="month" onchange="queryDetails('')">
+                    <option value="All"  id="defaultMonth">All</option>
+                </select>
+                <select name="year" id="year" onchange="queryDetails('')">
+                    <option value='All'  id="defaultYear">All</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table">
+            <table id='tableResult'>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Time Period</th>
+                    <th>Overtime Hours</th>
+                    <th>Breakdown Hours</th>
+                    <th>Employee Role</th>
+                    <th>Function</th>
+                    <th>Site Code-Address</th>
+                    <th>Status</th>
+                    <th>Send Reminder</th>
+                </tr>
+
+            </table>
+
+        </div>
+        <div class="pagination">
+        </div>
+
+    </div>
+
+    <table class="overtimeType-info"> 
+    </table> 
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+.overlay {
+    width: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 10%;
+}
+
+.breakdown-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: gray;
+    opacity: 0.95;
+}
+
+.breakdown-report {
+    background: #F8F4F3;
+    width: 76.7%;
+    height: 82%;
+    position: fixed;
+    left: 10%;
+    margin: 0% auto;
+    z-index: 1;
+    display: none;
+    padding: 20px 36px;
+    border-radius: 6px;
+    overflow: auto;
+}
+
+button.cancel-btn {
+    background: red;
+    border: none;
+    border-radius: 5px;
+    width: 65px;
+    margin: 0px 14px 0px 0px;
+    padding: 6px 0px;
+    color: white;
+    font-size: 14px;
+}
+
+button.save-btn {
+    background: #3C61AF;
+    padding: 6px 0;
+    width: 65px;
+    border-radius: 5px;
+    border: none;
+    margin: 0px 12px;
+    color: white;
+    font-size: 14px;
+}
+
+span.hours {
+    background: white;
+    margin-left: auto;
+    width: 77px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 4px 0px;
+}
+
+small.period {
+    margin: 0px 0px 0px 5.3%;
+    font-size: 16px;
+}
+p.heading {
+    font-size: 20px;
+    margin: 0px 0px 0px 8px;
+}
+
+.breakdown-header {
+    background: #B6C1DC;
+    display: flex;
+    align-items: center;
+    margin: 14px 0px 0px 0px;
+    height: 38px;
+}
+
+
+select.site-add {
+    width: 320px;
+    height: 33px;
+    border-radius: 5px;
+    padding: 0px 10px;
+}
+
+input#hr {
+    width: 84px;
+    height: 31px;
+    border-radius: 5px;
+    border: 1px solid #C8C8C8;
+    margin: 0px 7px 0px 0px;
+}
+
+select.ot-minute {
+    width: 105px;
+    height: 33px;
+    border-radius: 5px;
+}
+
+input#comment {
+    width: 595px;
+    height: 33px;
+    border-radius: 5px;
+    border: 1px solid #C8C8C8;
+
+}
+
+i.fa.fa-trash {
+    color: gray;
+    cursor: pointer;
+    margin: 0px 0px 0px 25px;
+}
+
+td input {
+    font-size: 20px;
+    padding : 0px 0px 0px 10px;
+}
+
+td input::placeholder {
+    padding : 0px 0px 0px 5px;
+}
+.overtimeType-info {
+    display: none;
+    width: 53%;
+    position: fixed;
+    top: 25%;
+    z-index: 2;
+    left: 21.2%;
+    background: black;
+    color: white;
+    border-radius: 22px;
+}
+
+.breakdown-report select {
+    font-size: 14px;
+}
+
+.fa-plus-circle {
+    margin: 20px 50%;
+    color: blue;
+}
+
+select.ot-category {
+    width: 205px;
+    height: 33px;
+    border-radius: 5px;
+    padding: 0px 10px;
+}

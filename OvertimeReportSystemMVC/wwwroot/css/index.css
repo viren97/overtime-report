@@ -1,0 +1,271 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #F8F4F3;
+}
+
+button, a, select {
+    cursor: pointer;
+}
+
+
+.navigation-bar {
+    display: flex;
+    width: 100%;
+    height: 63px;
+    background-color: black;
+    color : white;
+    align-items: center;
+}
+
+.pagefor {
+    position: absolute;
+    right: 0;
+    margin: 0px 45px 0px 0px;
+    font-size: 15px;
+}
+
+.portal {
+    display: inline-block;
+
+}
+
+select.user-role-dropdown {
+    border-radius: 5px;
+    width: 145px;
+    height: 31px;
+    margin: 0px 5px 0px 5px;
+}
+
+select.simulate-user {
+    border-radius: 5px;
+    width: 336px;
+    height: 31px;
+    margin: 0px 0px 0px 5px;
+}
+
+.navigation-bar:first-child {
+    font-size: 30px;
+}
+
+.navigation-bar img {
+    width: 170px;
+    height: 200px;
+    margin: 0px 149px 0px 26px;
+}
+
+span.name-page-divider {
+    font-size: 22px;
+    margin: 0px 10px 0px 10px;
+}
+
+span.portal-name {
+    font-size: 20px;
+}
+
+
+span.portal-page {
+    font-size: 20px;
+    color: lightgray;
+}
+
+.container {
+    margin : 20px 25px 0px 25px;
+ 
+}
+
+p.greeting-user {
+    font-size: 25px;
+}
+
+.search-box {
+    border-radius: 5px;
+}
+
+.search-box {
+    position: relative;
+}
+i.fas.fa-search {
+    position: absolute;
+    top: 0px;
+    left: 9px;
+    color: lightgray;
+    font-size: 20px;
+}
+
+span.search-box input[type=text] {
+    border-radius: 5px;
+    width: 30.8%;
+    height: 39px;
+    border: 1px solid;
+    margin: 15px 0px 0px 0px;
+    padding: 0px 0px 0px 40px;
+    font-size: 20px;
+}
+
+::placeholder {
+    font-size: 20px;
+    color: lightgray;
+}
+.filter-section-first {
+    margin: 10px 0px 0px 0px;
+    height: 78px;
+    display: flex;
+    background-color: #E3E0F0;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0px 8px;
+    width: 50%;
+}
+
+.filter-option {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-container {
+    display: flex;
+}
+
+.filter-option select {
+    height: 39px;
+    width: 225px;
+    margin: 0px 5px 0px 0px;
+    border-radius: 5px;
+}
+
+#siteCodeAddress {
+    width: 458px;
+}
+
+.filter-section-second {
+    margin: 10px 0px 0px 0px;
+    height: 78px;
+    display: flex;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0px 8px;
+    width: 50%;
+}
+
+select#function, select#status {
+    width: 303px;
+}
+
+.filter-section-second .btn {
+    width: 59px;
+    height: 39px;
+    margin: 18px 11px 0px 0px;
+    border-radius: 5px;
+    background-color: #ECF0FA;
+    font-size: 18px;
+}
+
+label {
+    font-size: 20px;
+}
+
+select {
+    font-size : 20px;
+}
+
+.report-summary {
+    display: flex;
+    width: 100%;
+    height: 51px;
+    background-color: #B2BED8;
+    color: gray;
+    font-size: 20px;
+    align-items: center;
+    margin: 3px 0px 0px 0px;
+}
+
+.report-summary p {
+    margin: 0px 7px 0px 6px;
+}
+
+.result-filterby-month {
+    margin: 0px 8px 0px auto;
+}
+
+select#month{
+    height: 39px;
+    width: 176px;;
+    margin: 0px 5px 0px 0px;
+    border-radius: 5px;
+}
+
+select#year {
+    height: 39px;
+    width: 125px;
+    margin: 0px 5px 0px 0px;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+   text-align: left;
+   background-color: white;
+   border : none;
+}
+
+
+td {
+    padding: 10px 0px 7px 10px;
+    font-size: 15px;
+    font-family: 'open sans';
+}
+td a {
+    text-decoration: none;
+}
+th {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0px 7px 10px;
+    font-size: 18px;
+    font-weight: 500;
+   
+}
+
+.pagination {
+    margin: 0 auto;
+    width: max-content;
+}
+
+.pagination a {
+    color: black;
+    padding: 5px 8px;
+    border: 1px solid lightgray;
+    text-decoration: none;
+    float: left;
+    background: white;
+}
+
+.pagination a:hover {
+    background-color : lightgray;
+}
+
+.table {
+    height: 50vh;
+}
+
+td:nth-child(2) {
+    color: #52A7FF;
+    cursor: pointer;
+}
+
+i.fas.fa-envelope {
+    color: #1E48A4;
+}
+
+.items {
+    display: flex;
+}
+
+.delete-icon {
+    margin : 9px auto;
+}

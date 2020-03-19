@@ -1,3 +1,0 @@
-﻿CREATE LOGIN [TECHNOVERT\sanjeev.k]
-    FROM WINDOWS WITH DEFAULT_LANGUAGE = [us_english];
-
